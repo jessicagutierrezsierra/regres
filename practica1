@@ -1,0 +1,65 @@
+#operaciones aritmeticas
+a<-4
+b<-3
+a+b
+suma<- a+b
+suma
+
+#operaciones de comparacion
+a > b #a es mayor que b
+a >=a #a es mayor igual que a
+a < b
+a >= b
+a==b
+a==4
+a != b # a es diferente a b
+
+ #Concepto de funcion
+x <- abs(-2.5) ##abs es la funcion del valor absoluto
+x
+#pedir ayuda en R
+help(abs)
+
+## para asignar valores a variables en R se usa una <-
+x <- "hola" ## variable tipo caracter
+z <- 6 # el igual solo funciona en una sola direccion 
+###
+
+ciudad <- "Toluca" #uuna entrada
+nombres <- c("Karla","Rodrigo","Miguel","Samuel") #caracter y 4
+edad <- c(28,17,49,31) #numerico y 4 entradas
+## se utiliza la funcion class para preguntarke a r que tipo de variable es
+class(nombres) ### tipo de variables
+class(edad)
+
+basel <- data.frame (nombres,edad) # se crea una base de datos
+View (basel) ## ver la base de datos
+ls(basel) ## ver lista de variables de base 1 
+basel$edad ## para conocer los datos de la variable #edad que se encuentra en la basel
+
+## crear una variable de nombre sexo con 4 entradas y donde hombre es 1 y mujer es el valor 2
+## la primera entrada en mujer y las otras 3 son hombres
+## despues de crear esta variable generen una nueva base 
+## de nombre base 2 con 3 variables , nombres, edad, sexo
+ sexo <- c(2,1,1,1)
+ ## base2 <- data.frame(nombres,edad,sexo) ##2da opcion
+ base2 <- data.frame(basel,sexo)
+View(base2)
+
+table(base2$sexo)
+table(base2$edad)
+table(base2$nombres)
+
+
+palumnos <- c(40,120,60,80) #alumnos facultad de economia
+etiq <- c("actuaria","eco","rei","nib")
+help("pie")
+
+pie(palumnos)
+pie(palumnos, etiq)
+
+pie(palumnos, etiq, main = 
+    "Grafica de pie de la 
+    Facultad de Economia",
+sub ="Fuente: Facultad de Economia",
+col=c("deepskyblue1","darkred","hotpink","goldenrod"), radius=1.5,clockwise=TRUE, lty = 20)
