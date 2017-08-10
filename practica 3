@@ -85,7 +85,8 @@ h
 ###otra forma de generar matrices en R
 i<- rbind(1:2,4:3,c(5,6),c(2:7), c(8,9))
 i
-
+k<-cbind(5:3,c(4,5,6),9:7,c(1,5,7),3:5)
+k
 
 
 
