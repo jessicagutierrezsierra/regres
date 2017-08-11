@@ -1,0 +1,40 @@
+
+
+Podemos
+cambiar el trazado de las lineas mediante las siguientes opciones.
+
+
+ lty: controla el tipo de las
+     lineas 
+ 
+  1: solida
+  2: quebrada
+  3: punteada
+  4: punto-linea
+  5: linea larga-corta
+  6: dos lineas cortas
+ 
+
+
+ 
+
+
+ lwd: determinar el ancho de
+     linea en relación con el valor por defecto (defecto=1)
+
+
+plot(x, y, main = "lineas", type = "n")abline(v = -1, lty = 1, col = "magenta")abline(h = -1, lty = 2, col = "red")abline(-1, 2, lty = 3, col = "blue",
+lwd = 2)abline(v = 1, lty = 5, col = "green3")abline(1, -1, lty = 6, col = "purple", lwd = 2) 
+
+
+
+
+
+
+
+
+
+
+
+
+
