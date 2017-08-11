@@ -1,0 +1,56 @@
+#Para pegar un renglon a la matriz e
+e<- rbind(e,c(4,5,6,7))
+e
+rownames(e)<-c("escuela1","escuela2","escuela3","escuela4","escuela5","escuela6")
+e
+#para pegar una columna a la matriz e
+e<-cbind(e,c(14,25,36,47,99,81))
+colnames(e)<-c("Toluca","Pachuca","Guadalajara","Monterrey","Jocotitlán")
+e
+e["escuela1","Jocotitlan"]<-28 
+e
+edit(e)
+#Para multiplicar matrices se utiliza %*%
+#e%*matrix%
+#para transponer matrices: t()
+ ##DATA FRAME
+nombres<-c("sergio","juan","rocio","jessica")
+##creo vectores
+edad<-c(30,43,21,18)#creo vectores
+altura<-c(170,165,175,172)
+salario<-c(3000,4500,2200,4300)
+basem<-data.frame(nombres,edad,altura,salario)
+View(basem)
+
+basem[4,3]<-178 #asigno el valor 178 a la posicion del 4to renglon 3a columna
+
+basem$salario*2.2->basem$salario ##multiplico salario
+basem
+peso<-c(83.2,75.2,69.3,70.5)##nuevo vector 
+basem<-data.frame(nombres,edad,altura,salario,peso)
+basem
+basem$peso*1.2->basem$peso
+basem
+round(basem$peso,3)->basem$peso #redondeando
+basem
+basem$escolaridad<-c("prepa","lic","ninguno","prim")
+basem$sexo<-c(1,1,2,2)
+basem
+###3 incorporar variable sexo
+table(basem$sexo) #tabla de frecuencias
+attach(basem)
+table(sexo)
+detach(basem) #elimina la funcion atach y poder utilizar datos de otras bases
+
+##INSTALAR PAQUETERÍAS DESDE INTERNET
+install.packages("foreign")
+install.packages("car")
+#De esta forma instalamos desde internet multiples 
+install.packages(c("foreign","questionr","car"))
+#La paqueteria foreign sirve para exportar o importar bases de datos, questionr es para expandir frecuencias de 
+#bases de datos muestrales y car es para regresion
+#dentro de cada paquete vienen múltiples funciones que solo las podemos usar cuando mandamos a llamar el paquete
+#para mandar llamar una paqueteria instaladam library()y requiere ()son funciones equivalentes
+library(foreign)
+library(questionr)
+require(car)
