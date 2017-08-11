@@ -1,0 +1,44 @@
+
+
+######parte 1###
+
+tarea<-11:31 #datos
+
+View(tarea)
+
+dim(tarea)<-c(4,5) #matriz 4 columnas y
+5 renglones
+
+#asignar nombre a columnas
+
+rownames(tarea)<-c(“toluca”,”pachuca”,”guadalara”,”monterrey”)
+
+colnames(tarea)<-(“escuela1”,”escuela2”,”escuela3”,”escuela4”,”escuela5”)
+
+View(tarea)
+
+colnames(tarea)
+
+rownames(tarea)
+
+#identificar datos
+
+tarea[escuela3,toluca]
+
+tarea[escuela5,guadalajara]
+
+tarea[escuela1,pachuca]
+
+ 
+
+####parte 2###
+
+a<-matrix(11:31,nrow=6,ncol=3)
+ View(a)
+  a[3,3]
+  a[3,]
+  a [,3]
+  
+ 
+
+
