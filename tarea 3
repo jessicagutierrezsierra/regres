@@ -1,0 +1,4 @@
+##para convertir una variable en númerico:
+
+mti2015$ENT <- as.numeric(mti2015$ENT)
+class(mti2015$ENT)
