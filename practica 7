@@ -1,0 +1,35 @@
+temporal<- tempfile()
+download.file("http://www.beta.inegi.org.mx/contenidos/proyectos/enchogares/modulos/mti/2015/microdatos/mti2015_bases_conapo_dbf.zip",temporal)
+files=unzip(temporal,list=TRUE)$Name
+unzip(temporal,files=files[grepl("dbf",files)])
+library(foreign)
+files
+mti15<-data.frame(read.dbf("mti2015_05_17_sdem_precodificado.DBF"))
+
+table(mti15$RAMA2)
+mti15$RAMA2[mti15$RAMA==1]<-1
+mti15$RAMA2[mti15$RAMA==2  | mti15$RAMA==3 ]<-2
+mti15$RAMA2[mti15$RAMA==4 | mti15$RAMA==5]<-3
+mti15$RAMA2[mti15$RAMA==6 |mti15$RAMA==7]<-4
+table(mti15$RAMA2)
+table(mti15$EDA)
+
+#############EJERCICIO: REDODIFICAR LA VARIABLE EDA EN GPODA EN 4 LINEAS
+mti<-data.frame(read.dbf("mti2015_05_17_sdem_precodificado.DBF"))
+mti$EDA<-as.character(mti15$EDA)
+table(mti$EDA)
+
+mti$GPOEDA[mti$EDA>=5 & mti$EDA<=7 ]<-1
+mti$GPOEDA[mti$EDA>=8 & mti$EDA<=11]<-2
+mti$GPOEDA[mti$EDA>=12 & mti$EDA<=14 ]<-3
+mti$GPOEDA[mti$EDA>=15 & mti$EDA<=17]<-4
+table(mti15$GPOEDA)
+mti$GPOEDA<-factor(mti$GPOEDA,levels=c(1,2,3,4),labels=c("NIÑ@S","PREADO","ADO","JOVEN"))
+table(mti$GPOEDA)
+
+###############exportar a excel######################################
+
+require(questionr)
+t<-wtd.table(mti$GPOEDA, weights=mti$FAC_MTI)
+t
+write.csv(t,file="practica7.csv")
