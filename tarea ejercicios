@@ -1,0 +1,286 @@
+##16##
+
+x<-c(5,12,14,17,23,30,40,47,55,67,72,81,96,112,127)
+y<-c(4,10,13,15,15,25,27,46,38,46,53,70,82,99,100)
+
+x2<-sum(x*x)
+xy<-sum(x*y)
+sx<-sum(x)
+sy<-sum(y)
+n<-15
+sxx<-x2-(sx*sx/n)
+sxy<-xy-(sx*sy/n)
+b1<-sxy/sxx
+b1
+sbx<-sum(b1*x)
+b0<-((sy-sbx)/n)
+b0
+yg<-(b0+b1*(x))
+mediax <- mean(x)
+mediax
+mediay <- mean(y)
+mediay
+mdo1 <- lm(y~x)
+mdo1
+summary (mdo1)
+plot(y~x, xlab = "volumen de precipitación pluvial", ylab = "volumen de escurrimiento", xlim = c(5,130), ylim = c(4,100), main="Gráfica Diagrama de Dispersión" abline(mdo1, col = "pink")
+     summary (mdo1)
+     SST<-sum(y-mediay)^2
+     SST
+     #####estimaciones puntuales
+     estpum<-b0+b1*x
+     estpum
+     SSE <-sum(y-(B0+B1*x))^2
+     SSE
+     sigma <-(SSE/13)
+     sigma
+     ###c
+     estpum<-b0+b1*50
+     estpum
+     ##d
+     raiz<-sqrt(sigma)
+     raiz
+     ##e
+     r<-1-(SSE/SST)
+     r
+     #################################################################33
+## 17 ##
+x<-c(99.0, 101.1, 102.7, 103.0, 105.4, 107.0, 108.7, 110.8, 112.1, 112.4, 113.6, 113.8, 115.1, 115.4, 120.0)
+y<-c(28.8, 27.9, 27.0, 25.2, 22.8, 21.5, 20.9, 19.6, 17.1, 18.9, 16.0, 16.7, 13.0, 13.6, 10.8)
+sumyi<-299.8
+sumyi2<-6430.06
+sumxi2<-179849.73
+sumxiyi<-32308.59
+
+###a
+### recta de regresión
+
+x2<-sum(x*x)
+xy<-sum(x*y)
+sx<-sum(x)
+sy<-sum(y)
+n<-15
+sxx<-x2-(sx*sx/n)
+sxy<-xy-(sx*sy/n)
+b1<-sxy/sxx
+b1
+sbx<-sum(b1*x)
+b0<-((sy-sbx)/n)
+b0
+yg<-(b0+b1*(x))
+plot(y~x, xlab = "Peso unitario", ylab = "porosidad", xlim = c(90,130), ylim = c(5,30), main="Muestras de Concreto" abline(mdo1, col = "blue")
+     
+     ####b (pendiente)####
+     
+     #####c
+     yg1<-(b0+b1*(135))
+     
+     ####d (residuos)
+     mediax <- mean(x)
+     mediax
+     mediay <- mean(y)
+     mediay
+     mdo1 <- lm(y~x)
+     mdo1
+     summary (mdo1)
+     r0<-(sum(x-mediax)^2)
+     r0
+     bixi<-sum(b1*x)
+     bixi
+     r1<-(sum(y-mediay)^2)
+     r1
+     ajuste<-(sum(bo+bixi))
+     ajuste
+     residuo<-sum(y-ajuste)
+     residuo
+     SSE <-sum(y-(B0+B1*x))^2
+     SSE
+     sigma <-(SSE/13)
+     sigma
+     raiz<-sqrt(sigma)
+     raiz
+     r2<-1-(SSE/SST)
+     r2
+     ############################################################################
+## 18 ##
+# Durante la última década el polvo de caucho se ha utilizado en
+# cemento asfáltico para mejorar el rendimiento. 
+# El artículo "Experimental Study Of Recycled Rubber-Filled High-strength Cocrete" 
+# incruye una regresión de y= esfuerzo axial (MPa) en x= esfuerzo cúbico (MPa)
+# basada en los siguientes datos de muestra
+## Y= esfuerzo axial(MPa)
+## x= esfuerzo cúbico (Mpa)
+
+x <- c(112.3, 97.0, 92.7, 86.0, 102.0, 99.2, 95.8, 103.5, 89.0, 86.7)
+y <- c(75.0, 71.0, 57.7, 48.7, 74.3, 73.3, 68.0, 59.3, 57.8, 48.5)
+
+# a. #Obtenga la ecuación de la recta de mínimo cuadrados e interprete su pendiente
+
+Sxy<-(sum(x*y)-(sum(x)*sum(y))/length(x))
+Sxx<-(sum(x^2)-((sum(x))^2)/length(x))
+B1<-Sxy/Sxx
+B0<-(mean(y)-(B1*mean(x)))
+y0<-B0+(B1*x)
+mdo1<-lm(y~x)
+plot(y~x,xlab="esfuerzo cúbico",ylab = "esfuerzo axial",main="Gráfica de dispersión")
+abline(mdo1,col="aquamarine4")
+
+##   recta y=-31.803692 + .9869705x
+     # pendiente
+B1
+## 0.9869705
+#### Interpretación ###
+# La pendiente se puede interpretar como una relacion positiva puesto que 
+# al aumentar el esfuerzo cúbico, el esfuerzo axial también aumenta
+
+
+# b. #Calcule e interprete el coeficiente de determinación.
+
+SST<-sum(y^2)-((sum(y)^2)/length(y))
+SSE<-sum(y^2)-(B0*sum(y))-(B1*sum(x*y))
+r2<-1-(SSE/SST)
+r2
+
+# r2=  0.630049 ~ 63%
+
+### Interpretación ###
+# Debido a que la variacion de la proporcion del esfuerzo axial solo se
+# visualiza en un 63% podemos notar que es muy bajo y la gráfica corrobora
+# dicha información, pues los puntos se encuentran dispersos
+
+
+# c. #Calcule e interprete una estimación de la desviación estándar Q del error
+     #en el modelo de regresión lineal simple.
+# (desviación estandar; sigma cuadrada)
+s2 <- SSE/8
+
+### Interpretación ###
+# Un valor grande de sigma cuadrada conduce a tener un esfuerzo axial bastante disperso
+#en torno a la recta de regresión.
+## 19 ##
+# Los siguientes datos son representativos de los reportados enn un artículo, 
+# con x= tasa de liberación debido a área de quemador y y= tasa de emisón de NOx (ppm):
+## X= tasa de liberacion debido a area de quemador (MBtu/h-pie^2)
+## y= tasa de emision de NOx (ppm)
+
+x <-c(100,125,125,150,150,200,200,250,250,300,300,350,400,400)
+y <-c(150,140,180,210,190,320,280,400,430,440,390,600,610,670)
+
+# a. #Suponiendo que el modelo de regresión lineal simple es válido obtenga la estimación de mínimos 
+# cuadrados de la recta de regresión verdadera
+Sxy <- (sum(x*y)-(sum(x)*sum(y))/length(x))
+Sxx <- (sum(x^2)-((sum(x))^2)/length(x))
+B1 <- Sxy/Sxx
+B0 <- (mean(y)-(B1*mean(x)))
+y0 <- B0+(B1*x)
+y0
+B1
+B0
+
+### Recta y= -45.5519 + 1.7114 x 
+
+
+# b. #¿Cuál es la estimación de la tasa de emisión de No, esperada cuando la tasa
+# de liberación debido al área del quemador es igual a 225?
+y0<-B0+(B1*225)
+y0
+
+### 339.5204
+
+
+# c. # Estime la cantidad en la cual espera que cambie la tasa de
+# emisiones de NO cuando la tasa de liberación debida al
+# área del quemador disminuye en 50.
+yn<-B0+(B1*(x-50))
+yn
+
+# d. # ¿Utilizaría la recta de regresión estimada para predecir
+#la tasa de emisión con una tasa de liberación de 500? 
+#¿por qué si, o por qué no?
+
+y2<-B0+(B1*(500))
+y2
+mdo1<-lm(y~x)
+plot(y~x,xlab="tasa de liberación",ylab = "tasa de emisión",main="Gráfica de dispersión")
+abline(mdo1,col="deeppink4")
+
+### SI, porque la recta toca los puntos o la mayoria estan muy
+# cerca de ella, por lo tanto se puede decir que es representativa
+## 24 ##
+## x = área superficial de la roca
+## y = densidad de la colonia
+
+x <-c(50, 71, 55, 50, 33, 58, 79, 26, 69, 44, 37, 70, 20, 45, 59)
+y <-c(152, 1929, 48, 22, 2, 5, 35, 7, 269, 38, 171, 13, 43, 185, 25)
+
+# a. #  ajustar el modelos de regresion lineal simple 
+# prediga la densidad de la colonia cuando el area superficial=70
+# y cuando el area superficial =71, calcular los residuos correspondientes
+# ¿Como se comparan entre si?
+
+Sxy<-(sum(x*y)-(sum(x)*sum(y))/length(x))
+Sxx<-(sum(x^2)-((sum(x))^2)/length(x))
+B1<-Sxy/Sxx
+B0<-(mean(y)-(B1*mean(x)))
+y0<-B0+(B1*x)
+mdo1<-lm(y~x)
+B0
+B1
+### recta y= -283 + 9.3992x
+
+#--------> x=70
+y1<-B0+(B1*70)
+y1
+### 374.2263
+
+mdo1$residuals[12]
+## residuo= -361.2263
+
+#--------> X=71
+y2<-B0+(B1*71)
+y2
+### 383.6255
+
+mdo1$residuals[2]
+## residuo= 1545.374 
+
+### Por los residuos que dan una alta valoración
+
+
+# b. #calcule e interprete el coeficiente de determinación
+SST<-sum(y^2)-((sum(y)^2)/length(y))
+SSE<-sum(y^2)-(B0*sum(y))-(B1*sum(x*y))
+r2<-1-(SSE/SST)
+r2
+### 0.1118476 ~ 11.2%
+## se rechaza porque es menor a 60%
+
+
+# c. #La segunda observacion tiene un valor muy extremo
+# Elimine y vuelva a calcular la ecuación de la recta de
+# regresión estimada. ¡Será que difiere sustancialmente
+# de la ecuación antes de la eliminación?
+# ¿Cuá es el impacto en r2 y en S?
+
+x <-c(50, 55, 50, 33, 58, 79, 26, 69, 44, 37, 70, 20, 45, 59)
+y <-c(152, 48, 22, 2, 5, 35, 7, 269, 38, 171, 13, 43, 185, 25)
+
+Sxy<-(sum(x*y)-(sum(x)*sum(y))/length(x))
+Sxx<-(sum(x^2)-((sum(x))^2)/length(x))
+B1<-Sxy/Sxx
+B0<-(mean(y)-(B1*mean(x)))
+y0<-B0+(B1*x)
+mdo1<-lm(y~x)
+B0
+B1
+### recta y= 41.0481 + 0.63356 x
+
+SST<-sum(y^2)-((sum(y)^2)/length(y))
+SSE<-sum(y^2)-(B0*sum(y))-(B1*sum(x*y))
+r2<-1-(SSE/SST)
+r2
+
+### 0.01616 ~ 1.6%
+
+#----->La diferencia si es drastica pues hay un cambio de
+# 11.2% a 1.6%
