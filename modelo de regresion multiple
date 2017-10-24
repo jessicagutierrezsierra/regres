@@ -1,0 +1,56 @@
+esta<-c(1.2,1.23,1.19,1.32,1.28,1.22,1.17,1.29,1.33,1.15)
+eco<-c(110,130,188,167,156,115,184,138,170,107)
+mod1<-lm(esta~eco)
+#bondad de ajuste
+#con la bondad de ajuste verificamos la calidad del modelo al interpretar la variable dependiente
+#la variable dependiente 
+#para eso se utiliza la variable anova
+anova(mod1)
+#en este caso la variabilidad explicada del modelo es .33022=SSM
+#se revisa la SSR=.0031
+#revisando los valores del summary el estadistico f es mayor a 1 y
+# p-value>.05 con estas revisiones se puede mencionar que se rechaza 
+#la hipotesis nula de f=1 y se puede establecer un modelo
+#revisar R2 multiple
+summary(mod1)
+#al rededor del 91% de la variabilidad de la estatura es explicada por la recta ajustada
+
+summary(mod1)$coefficients
+#esta=.9323 +.0023
+#analisis coeficientes
+#B0 es .93 y B1 .0023 si la variable ingreso incrementa en un peso la estatura del niño incrementa .0023
+base1<-data.frame(eco,esta)
+base1$fitted.mod1<-fitted(mod1)#valor ajustado
+base1$residuals.mod1<-residuals(mod1)#residuos del modelo
+base1$rstudent.mod1<-rstudent(mod1)#residuos estandarizados
+
+#estas variables se utilizan para comprobar los siguientes supuestos
+##supuesto de normalidad...es que los residuos tengan una distribucion normal
+#para conocer la normalidad se utiliza una prueba de shapiropara analizar los
+#resultados
+shapiro.test(base1$rstudent.mod1)
+#prueba de hipotesis shapiro test
+#Ho.la muetra tiene un histograma normal
+#Ha. la muestra no tiene distribucion normal
+##tenemos un p.value de .8172 no se rechaza la hipotesis nula
+# por lo tanto se acepta que hay normalidad
+#grafica
+x11()
+qqnorm(base1$rstudent.mod1, main="Normal" (0,1)) #se obtiene grafica de 
+qqline(base1$rstudent.mod1)       
+#ahora vamios a revisar la homogeneidad de la varianza
+#para la homogeneidad se require una libreria que se llama
+#lmtest, debido a que esta se tiene que ampliar la prueba de breusch-pagan test
+install.packages("lmtest")
+require(lmtest)
+bptest(mod1)
+##en esta prueba esperamos que haya homogeneidad de la varianza para esto
+#tenemos que tener un pvalue mayor a .05 por lo que para mod1
+#se puede decir que hay homogeneidad en la varianza
+#prueba de autocorrelacion o independencia
+
+#en este caso se utiliza la prueba de vurbin watson
+dwtest(mod1,alternative="two.sided")
+#en este caso al igual que los demás se acepta hipotesis nula
+#debido a que tenemos pvalue mayor a .05, esto quiere decir que no hay 
+#autocorrelacion en los residuos.
