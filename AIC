@@ -1,0 +1,86 @@
+### comparacion de modelos
+## pretendemos seleccionar el mejor subconjunto de predictores
+## en este caso para la aplicación del mrm tenemos 2 variables
+##in dependientes (calidad y capacidad) por lo que se propone
+## comparar 3 modelos con la finalidad de aplicar el
+## principio de parsimonia, conocer variebles indep. innecesarias
+## evitar multicolinealiada, es decir, que se tienen
+## muchas variables intentando explicar el modelo
+## ante estas variables se pueden comparar tres modelos
+# 1) precio~ capacidad
+# 2) precio~ calidad
+# 3) precio~ calidad + capacidad
+########### ¿Cómo selecionamos el mejor modelo? #############
+
+## criterio de i9nformación de Akaike (AIC)
+## el problema de utilizar r2 para comparar modelos es en muchos
+## casos al añadir nuevas variables al modelo, esta medida crece.
+## si estamos decidiendo cual de todos los modelos ajusta mejor a los de
+## el modelo con másd predictores siempre será el mejor ajustado.
+## Para evitar esto se utiliza el AIC, una medida de ajuste
+## que penaliza el modelo por tener más variabvles. viene definido por
+## AIC = (n)(log)(SCR/n))+ 2k
+## SCR = suma de cuadrados residuales
+## n es el número de casoso en el modelo
+## k número de variables independientes
+## el criterio que se utiliza para el AIC es elegir el modelo
+## que tenga el menor valor de AIC, es decir, esperamos en AIC
+## más pequeño. el AIC nos va a ayudar a decidir sobre la comparación de los modelos
+## el metodo más recomendado es el método de step by step
+## para R se utiliza la función step()
+## adentro del metodo de step´by step hay 3 modalidades
+## 1) forward... parte del coeficiente Bo y de ahi va probando
+## las variables independientes para ver cual es la que más aporta al modelo
+## 2)  backward... R empieza con todas las var independientes y estudia si el
+## AIC baja cuando hay cambios de variables
+## 3) both... empieza como el forward la diferencia es que se realzan
+## test para conocer el predictor menos util
+calidad <- c(2, 3, 4, 3, 4, 4, 4, 5, 5, 5)
+precio <- c(190, 219, 249, 249, 250, 340, 289, 395, 439, 525)
+capa <- c(4330, 5500, 5500, 4700, 5200, 5500, 4700, 5500, 5800, 5000)
+moch <- data.frame(precio, capa, calidad)
+mod1 <- lm(precio ~ capa + calidad, data = moch)
+summary(mod1)
+## en los coeficientes observamos el estadistico T que solo tenemos
+## significativa la var calidad
+## tenemos un error estandar residual de 58.75 que es un error alto
+## tambien observamos la r ajustada (por mrm) que tenemos una r
+## ajustada de .70,  lo que explica 70% de la variabilidad
+## del modelo observamos que tenemos un estadistico F como un buen valor
+## y p value menor a .05 que implica que este modelo es mejor que
+## el modelo basico ahora
+
+
+step(mod1, direction = "backward")
+## aqui podemos ver que el metodo step analizo 2 modelos
+## 1) precio ~ capa + calidad con un AIC =83.9
+## 2) precio ~ calidad con un AIC = 83.51
+### ahora vamos a probar con el metodo both
+step(mod1, direction = "both")
+## tenemos un  resultado igual al de backward por la forma que se
+## construye este modelo ahora con el metodo de forward
+step(mod1, direction = "forward")
+## en este solo muestra el modelo complejo pq inicia haciendo
+##prueba con el modelo nulo y solo deja el modelo completo pq
+## es el que mayorAIC muestra...
+help("datasets")
+library(help = "datasets")
+require(datasets); data(swiss); ?swiss
+### aplicar un modelo con la variable dependiente fertility a este
+##  modelo tienen que agregarle 3 variables independientes, van a realizar
+## una descriupcion de la fn summary del modelo completo
+# (vardep = indep1 + indep2 + indep3) la base de datos que van a usar es swiss
+## una vez que hagan la descripción del modelo completo aplicar el criterio
+## AIC para comparar los modelos posibles de su modelo completo,
+## ya que hayan elegido un modelo con base en el AIC aplicarlo y
+## describir la fn summary de su mejor modelo segun AIC
+swiss 
+mjy <- data.frame(swiss)
+mod2 <- lm(Fertility~ Education + Agriculture + Examination, data = mjy)
+summary(mod2)
+step(mod2, direction = "backward")
+step(mod2, direction = "both")
+step(mod2, direction = "forward")
+###
+### En este ejemplo los tres modelos dan el mismo AIC porque se contruyeron de la misma forma
+### AIC = 206.09
