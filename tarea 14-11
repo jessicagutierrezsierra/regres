@@ -1,0 +1,28 @@
+help(datasets)
+library(help="datasets")
+require(datasets);data(LifeCycleSavings);?LifeCycleSavings
+require(stats)#llamar libreria
+base<-data.frame(LifeCycleSavings)#convertir la base de datos
+LifeCycleSavings
+base1<-data.frame(LifeCycleSavings)
+names(base1)
+pairs(base1)#graficar en pares
+cor(base1)#relacion mortalidad infantil
+#con las demas variables
+ejercicio<-lm(pop15~pop75,data=base1)
+nulo1<-lm(pop75~1,data=base1)#comparar con otros modelos la eficacia
+summary(nulo1)
+completo1<-lm(pop75~.,data=base1)
+step(nulo1,scope=list(lower=nulo1,upper=completo1),direction="forward")
+##el mejor modelo es pop75~pop15+dpi+sr eso da un AIC de -63.99
+mod1<-lm(pop75~pop15+dpi+sr,data=base1)
+summary(mod1)
+####tenemos un error estandar de .5075 lo cual es bueno porque es pequeño
+#### r2=.8548 es bueno porque es cercano a 1
+####r ajustado es .8454 lo cual es bueno porque se acerca a 1
+completo2<-lm(pop15~.,data=base1)
+shapiro.test(rstudent(mod1))
+
+bptest(mod1)
+#no se autocorrelaciona por que el p~value es de .0298
+dwtest(mod1,alternative="two.sided")
