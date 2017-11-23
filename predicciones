@@ -1,0 +1,66 @@
+peso<-c(74,92,63,58,78,85,85,73,62,80,72,74)
+altura<-c(168,196,170,175,162,169,190,186,176,170,176,179)
+ritmo<-c(62,75,60,71,66,62,79,74,70,66,71,69)
+edad<-c(25,31,29,64,44,41,37,35,34,29,19,50)
+practica<-data.frame(peso,altura,ritmo,edad)
+pairs(practica)
+cor(practica)
+reg1<-lm(ritmo~1,data=practica)
+allreg1<-lm(ritmo~.,data=practica)
+step(reg1,scope=list(lower=reg1,upper=allreg1),direction="forward")
+mod2<-lm(ritmo~altura,data=practica)
+summary(mod2)#es un modelo aceptable
+#y=-17.1479+.4869*1+e
+####por cada unidad que aumenta la altura, aumenta en .4869 el ritmo
+shapiro.test(rstudent(mod2))###.823 los resuduos son normales
+require(lmtest)
+bptest(mod2)
+dwtest(mod2,alternative="two.sided")
+summary(mod2)
+
+limestudio1<-seq(min(practica$altura),max(practica$altura),length=12)
+limestudio2<-seq(min(practica$peso),max(practica$peso),length=12)
+limestudio3<-seq(min(practica$edad),max(practica$edad),length=12)
+limestudio1<-data.frame(limestudio1,limestudio2,limestudio3)
+limestudio1
+limestud1<-predict.lm(allreg1,limestudio1,interval = "prediction",se.fit=TRUE,data=practica)
+head(limestud1$fit)###genera limites
+####para dibujar los limites
+matplot(limestudio1,limestud1$fit,type ="l" )
+limestud1#predicciones
+predict(allreg1,data.frame(peso=60,altura=190,edad=61),interval="predict")
+##########################################################################
+
+no_cajas<-c(10,15,10,20,25,18,12,14,16,22,24,17,13,30,24)
+distancia<-c(30,25,40,18,22,31,26,34,29,37,20,25,27,23,33)
+tiempo<-c(24,27,29,31,25,33,26,28,31,39,33,30,25,42,40)
+practica3<-data.frame(no_cajas,distancia,tiempo)
+pairs(practica3)
+cor(practica3)
+reg5<-lm(tiempo~1,data=practica)
+allreg5<-lm(tiempo~.,data=practica3)
+step(reg5,scope=list(lower=reg5,upper=allreg5),direction="forward")
+mod5<-lm(tiempo~no_cajas+distancia,data=practica)
+summary(mod5)
+limestudio11<-seq(min(practica3$tiempo),max(practica3$tiempo),length=15)
+limestudio21<-seq(min(practica3$no_cajas),max(practica3$no_cajas),length=15)
+limestudio31<-seq(min(practica3$distancia),max(practica3$distancia),length=15)
+limestudio11<-data.frame(limestudio11,limestudio21,limestudio31)
+limestudio11
+limestud11<-predict.lm(allreg5,limestudio11,interval = "prediction",se.fit=TRUE,data=practica3)
+head(limestud11$fit)###genera limites
+####para dibujar los limites
+matplot(limestudio11,limestud11$fit,type ="l" )
+limestud11#predicciones
+predict(allreg5,data.frame(tiempo=35,distancia=28,no_cajas=27),interval="predict")
+shapiro.test(rstudent(mod5))###.823 los resuduos son normales
+require(lmtest)
+bptest(mod5)
+dwtest(mod5,alternative="two.sided")
+summary(mod5)
+install.packages("car")
+require(car)
+outlier
+Test(allreg5,outoff=.05,n.max=5,order=T)
+#-------------------------------------------------------------------
+
